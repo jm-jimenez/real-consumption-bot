@@ -42,6 +42,12 @@ public class ServerRequestsDispatcher {
         return Boolean.valueOf(data);
     }
     
+    public boolean newRefuel(int userId, String odo, String litres, String euros){
+        RequestBody rb = RequestBody.create(JSON, "{\"userId\" : " + userId + ", \"odo\" : " + odo + ", \"litres\" : " + litres + ", \"euros\" : " + euros + "}");
+        String data = sendRequest("newRefuel", rb);
+        return Boolean.valueOf(data);
+    }
+    
     private String sendRequest (String path, RequestBody rb){
         Request request = new Request.Builder()
                 .url("http://localhost:3000/" + path)
