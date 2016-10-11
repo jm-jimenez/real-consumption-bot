@@ -8,17 +8,8 @@ exports = module.exports = function(req, res) {
 	
 	var userId = req.body.userId;
 	User.model.find()
-		.where({"userId" : userId})
-		.exec()
-		.then(function (result){
-			if (result.length >0){
-				res.send("1");
-			}
-			else {
-				res.send("0");
-			}
-		}, function (err){
-			res.send("-1");
-		});
-	
+		.distinct("chatId", function (err, result){
+			console.log(result);
+			res.json(result);
+		})
 };

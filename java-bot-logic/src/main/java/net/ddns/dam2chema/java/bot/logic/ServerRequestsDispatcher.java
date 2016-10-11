@@ -8,6 +8,7 @@ package net.ddns.dam2chema.java.bot.logic;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -39,8 +40,8 @@ public class ServerRequestsDispatcher {
         return data;
     }
     
-    public boolean setCurrentOdometer(int userId, String odo){
-        RequestBody rb = RequestBody.create(JSON, "{\"userId\" : " + userId + ", \"odo\" : " + odo + "}");
+    public boolean setCurrentOdometer(int userId, String odo, long chatId, String firstName){
+        RequestBody rb = RequestBody.create(JSON, "{\"userId\" : " + userId + ", \"odo\" : " + odo + ", \"chatId\" : " + chatId + ", \"firstName\" : \"" + firstName + "\"}");
         String data = sendRequest("setCurrentOdometer", rb);
         return Boolean.valueOf(data);
     }
@@ -57,6 +58,21 @@ public class ServerRequestsDispatcher {
         String data = sendRequest("globalMileage", rb);
         Map <String, Double> map = new Gson().fromJson(data, new TypeToken<HashMap<String, Double>>(){}.getType());
         return map.get("mileage");
+    }
+    
+    public Integer [] getAllChats(){
+        
+        RequestBody rb = RequestBody.create(JSON, "{}");
+        String data = sendRequest("getAllChats", rb);
+        Integer [] salas = new Gson().fromJson(data, Integer[].class);
+        return salas;
+    }
+    
+    public Integer [] deleteUserData (int userId){
+        Integer [] chats = getAllChats();
+        RequestBody rb = RequestBody.create(JSON, "{\"userId\" : " + userId + "}");
+        sendRequest("deleteUserData", rb);
+        return chats;
     }
     
     private String sendRequest (String path, RequestBody rb){
