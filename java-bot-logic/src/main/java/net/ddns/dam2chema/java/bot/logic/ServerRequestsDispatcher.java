@@ -5,7 +5,11 @@
  */
 package net.ddns.dam2chema.java.bot.logic;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import okhttp3.MediaType;
@@ -13,7 +17,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okio.ByteString;
 
 /**
  *
@@ -46,6 +49,14 @@ public class ServerRequestsDispatcher {
         RequestBody rb = RequestBody.create(JSON, "{\"userId\" : " + userId + ", \"odo\" : " + odo + ", \"litres\" : " + litres + ", \"euros\" : " + euros + "}");
         String data = sendRequest("newRefuel", rb);
         return Boolean.valueOf(data);
+    }
+    
+    public double globalMileage (int userId){
+        
+        RequestBody rb = RequestBody.create(JSON, "{\"userId\" : " + userId + "}");
+        String data = sendRequest("globalMileage", rb);
+        Map <String, Double> map = new Gson().fromJson(data, new TypeToken<HashMap<String, Double>>(){}.getType());
+        return map.get("mileage");
     }
     
     private String sendRequest (String path, RequestBody rb){

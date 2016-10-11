@@ -20,5 +20,5 @@ exports = module.exports = function(app) {
 	app.all('/checkUserData', routes.api.checkUserData);
 	app.all('/setCurrentOdometer', routes.api.setCurrentOdometer);
 	app.all('/newRefuel', routes.api.newRefuel);
-	
+	app.all('/globalMileage', routes.api.globalMileage);
 };

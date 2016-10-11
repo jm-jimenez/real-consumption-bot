@@ -12,7 +12,7 @@ exports = module.exports = function(req, res) {
 	var litres = req.body.litres;
 	var euros = req.body.euros;
 	
-	var newRefuel = new Refuel.model({"odometer" : odometer, "litres" : litres, "euros" : euros});
+	var newRefuel = new Refuel.model({"odometer" : odometer, "litres" : litres, "euros" : euros, "userRef" : userId});
 
 	newRefuel.save(function (err, result){
 		console.log(result._id);

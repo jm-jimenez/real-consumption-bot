@@ -10,7 +10,7 @@ exports = module.exports = function(req, res) {
 	var userId = req.body.userId;
 	var odometer = req.body.odo;
 	
-	var newRefuel = new Refuel.model({"odometer" : odometer});
+	var newRefuel = new Refuel.model({"odometer" : odometer, "userRef": userId});
 
 	newRefuel.save(function (err, result){
 		console.log(result._id);

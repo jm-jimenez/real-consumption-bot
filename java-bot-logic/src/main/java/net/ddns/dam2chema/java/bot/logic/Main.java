@@ -62,6 +62,9 @@ public class Main {
                             bot.execute(sendMessage);
                     }
                 } else if (message.text().equalsIgnoreCase("/global")) {
+                    double mileage = new ServerRequestsDispatcher().globalMileage(user.id());
+                    sendMessage = new SendMessage(chat.id(), "Your global mileage is:\n" + (Math.round(mileage * 100.0)/ 100.0) + " l/100 km");
+                    bot.execute(sendMessage);
 
                 } else if (message.text().split(" ")[0].equalsIgnoreCase("/new_refuel")) {
                     String[] split = message.text().split(" ");
