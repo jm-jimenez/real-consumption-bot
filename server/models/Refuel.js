@@ -11,12 +11,13 @@ var Refuel = new keystone.List('Refuel');
 Refuel.add({
 	odometer: { type: Number, required: true, initial: true},
 	litres: { type: Number, initial: true, required: false},
-	euros: { type: Number, initial: true, required: false }
+	euros: { type: Number, initial: true, required: false },
+	full: {type: Types.Boolean, initial: true, required: false}
 });
 
 /**
  * Registration
  */
 
-Refuel.defaultColumns = 'odometer, litres, euros';
+Refuel.defaultColumns = 'odometer, litres, euros, full';
 Refuel.register();

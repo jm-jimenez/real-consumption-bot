@@ -46,8 +46,9 @@ public class ServerRequestsDispatcher {
         return Boolean.valueOf(data);
     }
     
-    public boolean newRefuel(int userId, String odo, String litres, String euros){
-        RequestBody rb = RequestBody.create(JSON, "{\"userId\" : " + userId + ", \"odo\" : " + odo + ", \"litres\" : " + litres + ", \"euros\" : " + euros + "}");
+    public boolean newRefuel(int userId, String odo, String litres, String euros, String full){
+        int f = full != null ? 1 : 0;
+        RequestBody rb = RequestBody.create(JSON, "{\"userId\" : " + userId + ", \"odo\" : " + odo + ", \"litres\" : " + litres + ", \"euros\" : " + euros + ", \"full\" : " + f + "}");
         String data = sendRequest("newRefuel", rb);
         return Boolean.valueOf(data);
     }
@@ -69,6 +70,7 @@ public class ServerRequestsDispatcher {
     }
     
     public Integer [] deleteUserData (int userId){
+        System.out.println(userId);
         Integer [] chats = getAllChats();
         RequestBody rb = RequestBody.create(JSON, "{\"userId\" : " + userId + "}");
         sendRequest("deleteUserData", rb);

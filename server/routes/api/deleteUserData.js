@@ -45,5 +45,48 @@ exports = module.exports = function(req, res) {
 			}
 		});
 	}
+
+	else{
+		async.waterfall([
+
+			function (callback){
+				User.model.find()
+					.where("userId", uId)
+					.populate("refuels")
+					.exec()
+					.then(function (result){
+						var refuels = result[0].refuels;
+						console.log(refuels);
+						async.each(refuels, function(refuel, next){
+							Refuel.model.find()
+								.where("_id", refuel._id)
+								.remove(function (err){
+									next();
+								});
+						}, function (err){
+							callback(null, "siguiente");
+						});
+					}, function (err){
+						callback("stop");
+				});
+			},
+
+			function (arg1, callback){
+				User.model.find()
+					.where("userId", uId)
+					.remove(function (err){
+						if (err){
+							callback("stop");
+						}
+						else{
+							callback(null, "siguiente1");
+						}
+					});
+			}
+
+		], function (err, result){
+			res.send("true");
+		});
+	}
 	
 };

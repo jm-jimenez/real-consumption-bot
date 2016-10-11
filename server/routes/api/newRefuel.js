@@ -11,8 +11,9 @@ exports = module.exports = function(req, res) {
 	var odometer = req.body.odo;
 	var litres = req.body.litres;
 	var euros = req.body.euros;
+	var full = req.body.full;
 	
-	var newRefuel = new Refuel.model({"odometer" : odometer, "litres" : litres, "euros" : euros, "userRef" : userId});
+	var newRefuel = new Refuel.model({"odometer" : odometer, "litres" : litres, "euros" : euros, "userRef" : userId, "full": full});
 
 	newRefuel.save(function (err, result){
 		console.log(result._id);
