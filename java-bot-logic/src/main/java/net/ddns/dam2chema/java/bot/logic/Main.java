@@ -95,7 +95,12 @@ public class Main {
                             + "Example:\n"
                             + "/new_refuel 34223 40 45\n\n"
                             + "Additionally you can specify if it was a full refuel providing a fourth parameter\n\n"
-                            + "/new_refuel 35001 38 43 full"
+                            + "/new_refuel 35001 38 43 full\n\n"
+                            + "You can check the global mileage with /global\n\n"
+                            + "Also, you can check the mileage between the last two refuels with /last_partial\n\n"
+                            + "If you also provide a number, I will show the last n refuels.\n\n"
+                            + "Example:\n"
+                            + "/last_partial 3\n\n"
                             + "You can also use the \"/\" button next to the input field to see other avalaible commands.";
                     sendMessage = new SendMessage(chat.id(), msg);
                     bot.execute(sendMessage);
