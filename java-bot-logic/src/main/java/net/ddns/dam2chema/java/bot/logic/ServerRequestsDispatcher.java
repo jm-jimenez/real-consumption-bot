@@ -6,6 +6,8 @@
 package net.ddns.dam2chema.java.bot.logic;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -75,6 +77,13 @@ public class ServerRequestsDispatcher {
         RequestBody rb = RequestBody.create(JSON, "{\"userId\" : " + userId + "}");
         sendRequest("deleteUserData", rb);
         return chats;
+    }
+    
+    public HashMap<String, Object[]> partialMileage (int userId, int numberOfResults){
+        RequestBody rb = RequestBody.create(JSON, "{\"userId\" : " + userId + ", \"limit\" : " + numberOfResults + "}");
+        String data = sendRequest("partialMileage", rb);
+        HashMap <String, Object[]> map = new Gson().fromJson(data, new TypeToken<HashMap<String, Object[]>>(){}.getType());
+        return map;
     }
     
     private String sendRequest (String path, RequestBody rb){

@@ -23,4 +23,5 @@ exports = module.exports = function(app) {
 	app.all('/globalMileage', routes.api.globalMileage);
 	app.all('/getAllChats', routes.api.getAllChats);
 	app.all('/deleteUserData', routes.api.deleteUserData);
+	app.all('/partialMileage', routes.api.partialMileage);
 };

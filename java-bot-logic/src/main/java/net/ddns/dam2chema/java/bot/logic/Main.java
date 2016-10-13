@@ -13,12 +13,10 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.User;
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
-import com.pengrad.telegrambot.model.request.Keyboard;
-import com.pengrad.telegrambot.model.request.KeyboardButton;
-import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -101,7 +99,32 @@ public class Main {
                             + "You can also use the \"/\" button next to the input field to see other avalaible commands.";
                     sendMessage = new SendMessage(chat.id(), msg);
                     bot.execute(sendMessage);
-                    
+                } else if (message.text().toLowerCase().startsWith("/last_partial")){
+                    boolean error = false;
+                    int limit = 1;
+                    String [] split = message.text().split(" ");
+                    if (split.length>1){
+                        try {
+                            limit = Integer.parseInt(split[1]);
+                        } catch (NumberFormatException e){
+                            error = true;
+                        }
+                    }
+                    if (!error){
+                        HashMap <String, Object[]> map = new ServerRequestsDispatcher().partialMileage(user.id(), limit);
+                        StringBuffer msg = new StringBuffer();
+                        Object [] mileages = map.get("mileages");
+                        Object [] days = map.get("days");
+                        for (int i=0, len=mileages.length; i<len; i++){
+                            msg.append(Math.round(Double.parseDouble(String.valueOf(mileages[i])) * 100.0)/ 100.0).append(" l/100km in ").append(days[i]).append(" days.\n");
+                        }
+                        sendMessage = new SendMessage(chat.id(), msg.toString());
+                        bot.execute(sendMessage);
+                    }
+                    else {
+                        sendMessage = new SendMessage(chat.id(), "The number of results must be an integer");
+                        bot.execute(sendMessage);
+                    }
                 } else if (message.text().split(" ")[0].equalsIgnoreCase("/new_refuel")) {
                     String[] split = message.text().split(" ");
                     if (split.length > 4){

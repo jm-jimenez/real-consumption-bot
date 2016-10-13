@@ -14,19 +14,16 @@ exports = module.exports = function(req, res) {
 		.select({_id: 0, refuels: 1})
 		.populate({
 			path: "refuels",
-			options: {sort : {"odometer" : 1}}
+			options: {
+				sort : {"odometer" : -1},
+				limit: 1
+			}
 		})
 		.exec()
 		.then(function (result){
-			var refuels = result[0].refuels;
-			var totalMileage = parseInt(refuels[refuels.length-1].odometer) - parseInt(refuels[0].odometer);
-			var totalLitres = 0;
-
-			for (var i=0, len=refuels.length; i<len; i++){
-				if (typeof refuels[i].litres != "undefined"){
-					totalLitres += refuels[i].litres;
-				}
-			}
+			var data = result[0].refuels[0];
+			var totalMileage = parseInt(data.totalOdometer);
+			var totalLitres = parseFloat(data.totalLitres);
 
 			var mileage = 100*totalLitres/totalMileage || 0;
 
