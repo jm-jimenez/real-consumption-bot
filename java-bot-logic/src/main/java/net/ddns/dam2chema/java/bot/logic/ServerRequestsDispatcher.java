@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import okhttp3.MediaType;
@@ -33,7 +34,11 @@ public class ServerRequestsDispatcher {
     public ServerRequestsDispatcher(){
         
         JSON = MediaType.parse("application/json; charset=utf-8");
-        client = new OkHttpClient(); 
+        client = new OkHttpClient.Builder()
+                .readTimeout(0, TimeUnit.DAYS)
+                .connectTimeout(0, TimeUnit.DAYS)
+                .retryOnConnectionFailure(true)
+                .build(); 
     }
     
     public String checkUserData(int userId){
@@ -88,7 +93,7 @@ public class ServerRequestsDispatcher {
     
     private String sendRequest (String path, RequestBody rb){
         Request request = new Request.Builder()
-                .url("http://localhost:3000/" + path)
+                .url("https://real-consumption-bot-server.herokuapp.com/" + path)
                 .post(rb)
                 .build();
         String response = "";

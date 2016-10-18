@@ -91,7 +91,7 @@ public class Main {
                 }else if (message.text().equalsIgnoreCase("/help")){
                     String msg = "You can add a new refuel using the command\n"
                             + "/new_refuel odometer litres euros [full]\n"
-                            + "The three parameters are required and must be writed in that order.\n\n"
+                            + "The three parameters are required and must be written in that order.\n\n"
                             + "Example:\n"
                             + "/new_refuel 34223 40 45\n\n"
                             + "Additionally you can specify if it was a full refuel providing a fourth parameter\n\n"
