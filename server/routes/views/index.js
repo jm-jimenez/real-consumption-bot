@@ -1,4 +1,5 @@
-var keystone = require('keystone');
+var keystone = require('keystone'),
+	User = keystone.list('User');
 
 exports = module.exports = function(req, res) {
 	
@@ -9,7 +10,32 @@ exports = module.exports = function(req, res) {
 	// item in the header navigation.
 	locals.section = 'home';
 	
-	// Render the view
-	view.render('index');
+	if (req.method == 'POST'){
+		var uid = req.body.lg_uid;
+
+		User.model.find()
+			.where("userId", uid)
+			.exec()
+			.then(function (result){
+
+				if (result.length > 0){
+					req.flash('success', "ENCONTRADO");
+				}
+
+				else {
+					req.flash('error', "Ese user id no existe");
+				}
+
+				view.render('index');
+
+			}, function (err){
+				console.log("error");
+			});
+
+	}
+
+	else{
+		view.render('index');
+	}
 	
 };

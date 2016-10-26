@@ -16,7 +16,7 @@ var routes = {
 exports = module.exports = function(app) {
 	
 	// Views
-	app.get('/', routes.views.index);
+	app.all('/', routes.views.index);
 	app.all('/checkUserData', routes.api.checkUserData);
 	app.all('/setCurrentOdometer', routes.api.setCurrentOdometer);
 	app.all('/newRefuel', routes.api.newRefuel);
