@@ -1,23 +1,59 @@
 extends ../layouts/default
 
+block css
+	link(href="/styles/custom.min.css", rel="stylesheet")
+
+block head
+	link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css")
+	link(href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css')
+	script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js")
+	meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+
 block content
-	.container: .jumbotron
-		img(src='/images/logo.svg', width='160')
-		h1 Welcome
-		p This is your new <a href='http://keystonejs.com', target='_blank'>KeystoneJS</a> website.
-		p It includes the latest versions of
-			| <a href='http://getbootstrap.com/' target='_blank'>Bootstrap</a>
-			| and <a href='http://www.jquery.com/' target='_blank'>jQuery</a>.
-		p Visit the <a href='http://keystonejs.com/guide' target='_blank'>Getting Started</a> guide to learn how to customise it.
-		hr
-		if user && user.canAccessKeystone
-			p
-				a(href='/keystone').btn.btn-lg.btn-primary Open the Admin UI
-		else
-			p We have created a default Admin user for you with the email <strong>josemariajimenezperez@gmail.com</strong> and the password <strong>admin</strong>.
-			p
-				a(href='/keystone/signin', style='margin-right: 10px').btn.btn-lg.btn-primary Sign in
-				|  to use the Admin UI.
-		hr
-		p Remember to <a href='https://github.com/keystonejs/keystone' target='_blank'>Star KeystoneJS on GitHub</a> and
-			| <a href='https://twitter.com/keystonejs' target='_blank'>follow @keystonejs</a> on twitter for updates.
+	.container
+
+		.text-center(style="padding:50px 0")
+			.logo login
+			.login-form-1
+				form#login-form.text-left
+					.login-form-main-message
+					.main-login-form
+						.login-group
+							.form-group
+								label.sr-only(for="lg_uid") User id
+								input#lg_uid.form-control(type="text" name="lg_uid" placeholder="User id")
+						button.login-button(type="submit")
+							i.fa.fa-chevron-right
+		
+	//-	
+		<div class="text-center" style="padding:50px 0">
+			<div class="logo">login</div>
+			<!-- Main Form -->
+			<div class="login-form-1">
+				<form id="login-form" class="text-left">
+					<div class="login-form-main-message"></div>
+					<div class="main-login-form">
+						<div class="login-group">
+							<div class="form-group">
+								<label for="lg_username" class="sr-only">Username</label>
+								<input type="text" class="form-control" id="lg_username" name="lg_username" placeholder="username">
+							</div>
+							<div class="form-group">
+								<label for="lg_password" class="sr-only">Password</label>
+								<input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="password">
+							</div>
+							<div class="form-group login-group-checkbox">
+								<input type="checkbox" id="lg_remember" name="lg_remember">
+								<label for="lg_remember">remember</label>
+							</div>
+						</div>
+						<button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
+					</div>
+					<div class="etc-login-form">
+						<p>forgot your password? <a href="#">click here</a></p>
+						<p>new user? <a href="#">create new account</a></p>
+					</div>
+				</form>
+			</div>
+			<!-- end:Main Form -->
+		</div>

@@ -93,7 +93,8 @@ public class ServerRequestsDispatcher {
     
     private String sendRequest (String path, RequestBody rb){
         Request request = new Request.Builder()
-                .url("https://real-consumption-bot-server.herokuapp.com/" + path)
+                //.url("https://real-consumption-bot-server.herokuapp.com/" + path)
+                .url("http://localhost:3000/" + path)
                 .post(rb)
                 .build();
         String response = "";

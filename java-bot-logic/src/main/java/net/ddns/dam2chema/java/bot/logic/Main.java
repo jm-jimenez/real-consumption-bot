@@ -130,6 +130,10 @@ public class Main {
                         sendMessage = new SendMessage(chat.id(), "The number of results must be an integer");
                         bot.execute(sendMessage);
                     }
+                } else if (message.text().toLowerCase().equals("/gimme_id")){
+                    sendMessage = new SendMessage (chat.id(), "Your unique id is: " + user.id());
+                    bot.execute(sendMessage);
+                    
                 } else if (message.text().split(" ")[0].equalsIgnoreCase("/new_refuel")) {
                     String[] split = message.text().split(" ");
                     if (split.length > 4){
