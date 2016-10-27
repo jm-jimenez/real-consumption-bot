@@ -17,6 +17,9 @@ exports = module.exports = function(app) {
 	
 	// Views
 	app.all('/', routes.views.index);
+	app.all('/home', routes.views.home);
+
+	//Bot routes
 	app.all('/checkUserData', routes.api.checkUserData);
 	app.all('/setCurrentOdometer', routes.api.setCurrentOdometer);
 	app.all('/newRefuel', routes.api.newRefuel);

@@ -19,14 +19,14 @@ exports = module.exports = function(req, res) {
 			.then(function (result){
 
 				if (result.length > 0){
-					req.flash('success', "ENCONTRADO");
+					req.body.params = {"uid": uid};
+					res.redirect(307, "/home");
 				}
 
 				else {
 					req.flash('error', "Ese user id no existe");
+					view.render('index');
 				}
-
-				view.render('index');
 
 			}, function (err){
 				console.log("error");
