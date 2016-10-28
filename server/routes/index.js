@@ -9,7 +9,8 @@ keystone.pre('render', middleware.flashMessages);
 // Import Route Controllers
 var routes = {
 	views: importRoutes('./views'),
-	api: importRoutes('./api')
+	api: importRoutes('./api'),
+	petitions: importRoutes('./petitions')
 };
 
 // Setup Route Bindings
@@ -19,7 +20,10 @@ exports = module.exports = function(app) {
 	app.all('/', routes.views.index);
 	app.all('/home', routes.views.home);
 
-	//Bot routes
+	// Ajax petitions
+	app.all('/insertRefuel', routes.petitions.newRefuel);
+
+	// Bot routes
 	app.all('/checkUserData', routes.api.checkUserData);
 	app.all('/setCurrentOdometer', routes.api.setCurrentOdometer);
 	app.all('/newRefuel', routes.api.newRefuel);

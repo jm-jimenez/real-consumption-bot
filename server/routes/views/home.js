@@ -1,18 +1,30 @@
-var keystone = require('keystone');
+var keystone = require('keystone'),
+	User = keystone.list('User');
 
 exports = module.exports = function(req, res) {
 
-	setTimeout(function (){
-		console.log("entrooo");
-		console.log(req.body);
-		var view = new keystone.View(req, res);
-		var locals = res.locals;
-		var uid = req.body.lg_uid;
+	
 
-		locals.uid = uid;
+	var view = new keystone.View(req, res),
+		locals = res.locals,
+		userData = req.app.locals.userData;
 
-		view.render("home");
-	}, 3000);
+
+	User.model.find()
+		.where('userId', userData.uid)
+		.populate('refuels')
+		.exec()
+		.then(function (result){
+			var refuels = result[0].refuels;
+			console.log (refuels);
+			locals.refuels = refuels;
+			view.render("home");
+		}, function (err){
+			console.log(err);
+		});
+
+		
+
 
 
 };

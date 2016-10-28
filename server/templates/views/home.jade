@@ -3,6 +3,27 @@ extends ../layouts/default
 block content
 	.container
 
-		div now you are logged in #{uid}
+		div now you are logged in #{userData.uid} #{userData.name}
+
+		table.table
+			thead: tr
+				th Odometer
+				th Litres
+				th Euros
+				th Full
+
+				for refuel in refuels
+					tr
+						td=refuel.odometer
+						td=refuel.litres
+						td=refuel.euros
+						td
+							input(type="checkbox" checked=refuel.full disabled)
+
+
+
+		
+
+		
 
 		

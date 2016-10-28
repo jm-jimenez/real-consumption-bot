@@ -19,12 +19,12 @@ exports = module.exports = function(req, res) {
 			.then(function (result){
 
 				if (result.length > 0){
-					req.body.params = {"uid": uid};
-					res.redirect(307, "/home");
+					req.app.locals.userData = {"uid": uid, "name": result[0].firstName};
+					res.redirect("/home");
 				}
 
 				else {
-					req.flash('error', "Ese user id no existe");
+					req.flash('error', "That user id doesn't exist");
 					view.render('index');
 				}
 
