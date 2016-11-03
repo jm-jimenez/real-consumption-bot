@@ -17,7 +17,15 @@ exports = module.exports = function(req, res) {
 		.then(function (result){
 			var refuels = result[0].refuels;
 			console.log (refuels);
+
+			var totalMileage = parseInt(refuels[refuels.length-1].totalOdometer);
+			var totalLitres = parseFloat(refuels[refuels.length-1].totalLitres);
+			var mileage = Math.round(100*totalLitres/totalMileage*100)/100 || 0;
+
 			locals.refuels = refuels;
+			locals.mileage = mileage;
+
+
 			view.render("home");
 		}, function (err){
 			console.log(err);

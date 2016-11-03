@@ -1,5 +1,8 @@
 extends ../layouts/default
 
+block head
+	script(src="/js/calculateExpense.js")
+
 block content
 	.container
 
@@ -7,23 +10,29 @@ block content
 
 		table.table
 			thead: tr
+				th Date
 				th Odometer
 				th Litres
 				th Euros
 				th Full
 
 				for refuel in refuels
-					tr
+					- var date = new Date(refuel.date);
+					- var day = date.getDate();
+					- var month = date.getMonth() + 1;
+					- var year = date.getFullYear();
+					if (day<10)
+						- day = "0" + day;
+					if (month<10)
+						- month = "0" + month; 
+					tr(data-id="#{refuel._id}")
+						td: input(type="date" value="#{year}-#{month}-#{day}" disabled)
 						td=refuel.odometer
 						td=refuel.litres
 						td=refuel.euros
-						td
-							input(type="checkbox" checked=refuel.full disabled)
+						td: input(type="checkbox" checked=refuel.full disabled)
 
-
-
-		
-
-		
+		div Historical mileage: 
+			span= mileage + " l/100"
 
 		
