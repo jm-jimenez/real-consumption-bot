@@ -152,6 +152,9 @@ public class Main {
                         sendMessage = new SendMessage(chat.id(), "You must provide the required parameters");
                         bot.execute(sendMessage);
                     }
+                } else if (message.text().equalsIgnoreCase("/uid")){
+                    sendMessage = new SendMessage(chat.id(), "Your user id is: " + user.id());
+                    bot.execute(sendMessage);
                 } else if (awaitsForData) {
                     try {
                         Integer.parseInt(message.text());
