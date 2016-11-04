@@ -25,7 +25,7 @@ block content
 						- day = "0" + day;
 					if (month<10)
 						- month = "0" + month; 
-					tr(data-id="#{refuel._id}")
+					tr(data-id="#{refuel._id}" data-total-odo="#{refuel.totalOdometer}" data-total-euros="#{refuel.totalEuros}" data-partial-euros="#{refuel.euros}" data-total-litres="#{refuel.totalLitres}" data-full="#{refuel.full}")
 						td: input(type="date" value="#{year}-#{month}-#{day}" disabled)
 						td=refuel.odometer
 						td=refuel.litres
@@ -35,4 +35,10 @@ block content
 		div Historical mileage: 
 			span= mileage + " l/100"
 
+		#expensesPopup.modal.fade(role="dialog"): .modal-dialog: .modal-content
+			.modal-header
+				button.close(data-dismiss="modal") &times;
+				h4#modal-title.modal-title Modal Header
+			#modal-text.modal-body: p Some text in the modal
+			.modal-footer: button.btn.btn-default(type="button" data-dismiss="modal") Close
 		
