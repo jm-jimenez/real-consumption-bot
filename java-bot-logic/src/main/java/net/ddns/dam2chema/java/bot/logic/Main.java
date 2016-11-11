@@ -130,12 +130,12 @@ public class Main {
                         sendMessage = new SendMessage(chat.id(), "The number of results must be an integer");
                         bot.execute(sendMessage);
                     }
-                } else if (message.text().toLowerCase().equals("/gimme_id")){
-                    sendMessage = new SendMessage (chat.id(), "Your unique id is: " + user.id());
-                    bot.execute(sendMessage);
-                    
+                   
                 } else if (message.text().split(" ")[0].equalsIgnoreCase("/new_refuel")) {
                     String[] split = message.text().split(" ");
+                    split[0] = split[0].replace(".", "");
+                    split[1] = split[1].replace(",", ".");
+                    split[2] = split[2].replace(",", ".");
                     if (split.length > 4){
                         if (new ServerRequestsDispatcher().newRefuel(user.id(), split[1], split[2], split[3], split[4])) {
                             sendMessage = new SendMessage(chat.id(), "New refuel added successfully!");
