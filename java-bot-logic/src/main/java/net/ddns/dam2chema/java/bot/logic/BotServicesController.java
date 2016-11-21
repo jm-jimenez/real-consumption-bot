@@ -26,7 +26,7 @@ public class BotServicesController implements Runnable {
 
     @Override
     public void run() {
-        while (!stop) {
+        /*while (!stop) {
             Scanner lector = new Scanner(System.in);
             String line = lector.nextLine();
             if (line.equalsIgnoreCase("stop")){
@@ -45,7 +45,7 @@ public class BotServicesController implements Runnable {
                     bot.execute(new SendMessage(chat, "Statistics has been reset.\nPlease use /start"));
                 }
             }
-        }
+        }*/
     }
 
     public boolean botStop() {
